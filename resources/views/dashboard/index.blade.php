@@ -7,37 +7,58 @@
 @use postcss-color-function;
 @use postcss-nested;
 @import url('https://fonts.googleapis.com/css?family=Raleway:400,700,900');
+<style>
+       .master-data {
+           cursor: pointer;
+       }
 
-    .penelitian{
-        background: hsla(198, 100%, 25%, 1);
-        background: linear-gradient(90deg, hsla(198, 100%, 25%, 1) 0%, hsla(211, 100%, 28%, 1) 100%);
-        background: -moz-linear-gradient(90deg, hsla(198, 100%, 25%, 1) 0%, hsla(211, 100%, 28%, 1) 100%);
-        background: -webkit-linear-gradient(90deg, hsla(198, 100%, 25%, 1) 0%, hsla(211, 100%, 28%, 1) 100%);
-        filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#005A80", endColorstr="#00458E", GradientType=1 );
-    }
-    .jumlah-publikasi{
-        border-radius:10px;
-        border-top:5px solid #103783;
-    }
-    .btn-filter{
-        background: hsla(198, 100%, 25%, 1);
-        background: linear-gradient(90deg, hsla(198, 100%, 25%, 1) 0%, hsla(211, 100%, 28%, 1) 100%);
-        background: -moz-linear-gradient(90deg, hsla(198, 100%, 25%, 1) 0%, hsla(211, 100%, 28%, 1) 100%);
-        background: -webkit-linear-gradient(90deg, hsla(198, 100%, 25%, 1) 0%, hsla(211, 100%, 28%, 1) 100%);
-        filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#005A80", endColorstr="#00458E", GradientType=1 );
-    }
-    .card{
-        border-radius:10px; 
-    }
-    .select-user{
-        float: right;
-        background: rgb(241, 246, 248);
-        border: none;
-        padding: 5px 15px 5px 15px;
-    }
-    .hilang{
-        display: none;
-    }
+       .master-data:hover {
+            box-shadow: 0px 0px 33px -14px rgba(0,0,0,0.75);
+            -webkit-box-shadow: 0px 0px 33px -14px rgba(0,0,0,0.75);
+            -moz-box-shadow: 0px 0px 33px -14px rgba(0,0,0,0.75);
+            border-right: 4px solid rgb(0, 98, 128);";
+       }
+       .info-box {
+            box-shadow: 0 0 1px rgba(0, 0, 0, 0.125), 0 1px 3px rgba(0, 0, 0, 0.2);
+            border-radius: 0.50rem;
+            background-color: #fff;
+            display: -ms-flexbox;
+            display: flex;
+            margin-bottom: 1rem;
+            min-height: 80px;
+            position: relative;
+            width: 100%;
+        }
+
+        .info-box .info-box-icon {
+            border-radius: 0.50rem 0 0 0.50rem;
+            -ms-flex-align: center;
+            align-items: center;
+            display: -ms-flexbox;
+            display: flex;
+            font-size: 1.875rem;
+            -ms-flex-pack: center;
+            justify-content: center;
+            text-align: center;
+            width: 70px;
+        }
+
+        .info-box .info-box-icon > img {
+            max-width: 100%;
+        }
+
+        .info-box .info-box-content {
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            -ms-flex-pack: center;
+            justify-content: center;
+            line-height: 1.8;
+            -ms-flex: 1;
+            flex: 1;
+            padding: 0 15px;
+        }
 </style>
 @endsection
 
@@ -62,32 +83,180 @@
 @endsection
 
 @section('content')
+
 <div class="row mt-4">
     <div class="col-lg-12 col-md-6">
-        <div class="card mb-3" style="max-width: 100%;">
-            <div class="row g-0">
-              <div class="col-md-4">
-                <img src="{{ asset('img/loginbg.png') }}" class="img-fluid rounded-start" alt="...">
-              </div>
-              <div class="col-md-8">
-                <div class="card-body">
-                  <h5 class="card-title" style="font-size:71px;">Selamat Datang</h5>
-                  {{-- <p class="card-text" style="font-size:23px;">Jln. Usaha Tani Desa Lalonggombu Kelurahan Lalonggombu</p> --}}
-                  {{-- <div class="card">
-                      <div class="card-body">
-                          <b><i>JUJUR</i></b> <b><i>OPTIMIS</i></b> <b><i>DISIPLIN</i></b> <b><i>ONTIME</i></b>
-                      </div>
-                  </div> --}}
+        <div class="row">
+            <h5>
+            Selamat Datang {{Auth::user()->name}} di Sistem Informasi Penjualan Toko Invinity CCTV
+            </h5>
+            <hr>
+            <div class="row">
+                <div class="col-sm-4">
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">{{ $countPenjualan }} Penjualan</h5>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">{{$countPelanggan}} Pelanggan</h5>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">{{$countBarang}} Barang</h5>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
+
+        </div>
+            <div class="row">
+                <div class="col-sm-8">
+                  <div class="card">
+                    <div class="card-body">
+                      <div id="chart"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="card">
+                    <div class="card-body">
+                      <div id="pie"></div>
+                    </div>
+                  </div>
+                </div>
+               
+              </div>
+
         </div>
     </div>
 </div>
+
 @endsection
 
 @section('script')
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-more.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
 
- 
+<script>
+const chart = Highcharts.chart('chart', {
+    title: {
+        text: 'Total Transakai',
+        align: 'left'
+    },
+    subtitle: {
+        text: '',
+        align: 'left'
+    },
+    xAxis: {
+        categories: @json($date)
+    },
+    series: [{
+        type: 'column',
+        name: 'Transaksi',
+        colorByPoint: true,
+        data: @json($total_transaksi),
+        showInLegend: false
+    }]
+});
+
+document.getElementById('plain').addEventListener('click', () => {
+    chart.update({
+        chart: {
+            inverted: false,
+            polar: false
+        },
+        subtitle: {
+            text: 'Chart option: Plain | Source: ' +
+                '<a href="https://www.nav.no/no/nav-og-samfunn/statistikk/arbeidssokere-og-stillinger-statistikk/helt-ledige"' +
+                'target="_blank">NAV</a>'
+        }
+    });
+});
+
+document.getElementById('inverted').addEventListener('click', () => {
+    chart.update({
+        chart: {
+            inverted: true,
+            polar: false
+        },
+        subtitle: {
+            text: 'Chart option: Inverted | Source: ' +
+                '<a href="https://www.nav.no/no/nav-og-samfunn/statistikk/arbeidssokere-og-stillinger-statistikk/helt-ledige"' +
+                'target="_blank">NAV</a>'
+        }
+    });
+});
+
+document.getElementById('polar').addEventListener('click', () => {
+    chart.update({
+        chart: {
+            inverted: false,
+            polar: true
+        },
+        subtitle: {
+            text: 'Chart option: Polar | Source: ' +
+                '<a href="https://www.nav.no/no/nav-og-samfunn/statistikk/arbeidssokere-og-stillinger-statistikk/helt-ledige"' +
+                'target="_blank">NAV</a>'
+        }
+    });
+});
+
+</script>
+
+
+<script>
+// Data retrieved from https://netmarketshare.com/
+// Build the chart
+Highcharts.chart('pie', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: 'Data Pegawai',
+        align: 'left'
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    accessibility: {
+        point: {
+            valueSuffix: '%'
+        }
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: false
+            },
+            showInLegend: true
+        }
+    },
+    series: [{
+        name: 'Brands',
+        colorByPoint: true,
+        data: [
+        {
+            name: 'Petugas',
+            y: {{$countPetugas}}
+        }]
+    }]
+});
+
+</script>
 @endsection

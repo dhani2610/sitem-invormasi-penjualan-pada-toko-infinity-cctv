@@ -40,6 +40,7 @@
 
                     @include('components.form-message')
 
+
                     <div class="form-group mb-3">
                         <label for="name">Name</label>
                         <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
@@ -75,13 +76,16 @@
                     </div>
                     
                     <div class="form-group mb-3">
-                        <label for="name" class="form-control @error('type') is-invalid @enderror" >Type</label>
-                        <select name="type" id="">
-                            <option value="Spv">Supervisor</option>
-                            <option value="Operator">Operator</option>
+                        <label for="name"  >Divisi</label>
+                        <select name="divisi_id" class="form-control @error('divisi_id') is-invalid @enderror" id="">
+                            @foreach ($divisi as $item)
+                                <option value="{{ $item->id }}"
+                                     {{$user->divisi_id == $item->id ? 'selected' : '' }}>
+                                     {{ $item->nama_divisi }}</option>
+                            @endforeach
                         </select>
 
-                        @error('type')
+                        @error('divisi_id')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>

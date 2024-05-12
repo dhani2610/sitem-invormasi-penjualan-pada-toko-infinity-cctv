@@ -91,7 +91,9 @@
                   </a>
                   @endcan
                   @if(auth()->user()->can('user-delete') && Auth::user()->id != $user->id)
-                  <a href="#" class="btn btn-danger f-12" onclick="modalDelete('User', '{{ $user->username }}', 'users/' + {{ $user->id }}, '/users/')">
+                
+
+                  <a href="{{ route('user-destroy', $user->id) }}" class="btn btn-danger f-12">
                     <i class="far fa-trash-alt"></i>
                     Delete
                   </a>

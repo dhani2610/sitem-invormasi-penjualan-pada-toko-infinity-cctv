@@ -5,6 +5,9 @@
     .pointer {
         cursor: pointer;
     }
+    .bg-gray1{
+        background: aqua!important;
+    }
 </style>
 @endsection
 

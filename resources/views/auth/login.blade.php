@@ -184,6 +184,10 @@ h2 {
 .control--checkbox input:disabled:checked ~ .control__indicator {
   background-color: #7e0cf5;
   opacity: .2; }
+
+.bg-perpus{
+  background:black;
+}
         </style>
 
     </head>
@@ -193,7 +197,7 @@ h2 {
     <!-- <body data-layout="horizontal"> -->
 
         <div class="d-lg-flex half">
-            <div class="bg order-1 bg-primary order-md-2" style="background-image: url('{{ asset('img/loginbg.png') }}');"></div>
+            <div class="bg order-1 bg-perpus order-md-2" style="background-image: url('img/davidpsd logo.png'); "></div>
             <div class="contents">
         
               <div class="container">
@@ -201,7 +205,7 @@ h2 {
                   <div class="col-md-6">
                     <div class="mb-4 mb-md-5 text-center">
                         <a href="index.html" class="d-block auth-logo">
-                            <img src="{{ asset('img/loginbg.png') }}" alt="" height="100">
+                            <img src="{{ asset('img/davidpsd logo.png') }}" alt="" height="100">
                         </a>
                         <div class="text-center">
                             <h5 class="mb-0 font-telkom">Selamat Datang</h5>
@@ -213,7 +217,7 @@ h2 {
 
                         <div class="form-floating form-floating-custom mb-4">
                             <input id="username" type="text" class="form-control  @error('nip') is-invalid @enderror" name="nip" value="{{ old('nip') }}" required autofocus placeholder="Enter Nip Or Nim">
-                            <label for="input-username">Nip or Nim</label>
+                            <label for="input-username">Username</label>
                             <div class="form-floating-icon">
                             <i data-feather="users"></i>
                             </div>
@@ -231,15 +235,9 @@ h2 {
                             </div>
                         </div>
 
-                        <div class="row mb-2">
-                            <div class="col">
-                              <div class="text-center">
-                                <p class="text-muted mt-2">Tidak Meiliki Akun? <a href="{{ route('register') }}"><b>Daftar Disini</b></a> </p>
-                              </div>
-                            </div>
-                        </div>
+                       
                         <div class="mb-3">
-                            <button class="btn btn-primary w-100 waves-effect waves-light font-telkom" type="submit">Masuk</button>
+                            <button class="btn bg-perpus w-100 waves-effect waves-light font-telkom text-white"  type="submit">Masuk</button>
                         </div>
                     </form>
                   </div>

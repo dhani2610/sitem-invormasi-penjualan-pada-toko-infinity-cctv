@@ -35,30 +35,12 @@
 
             <form action="{{ route('users.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
+                @include('components.form-message')
+
 
                 <div class="card-body">
-{{-- 
-                    <div class="form-group mb-3">
-                        <label for="nik">NIP</label>
-                        <input type="number" class="form-control @error('nik') is-invalid @enderror" id="nik" name="nik" value="{{ old('nik') }}"  placeholder="Enter NIK">
 
-                        @error('nik')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label for="nuptk">NUPTK</label>
-                        <input type="number" class="form-control @error('nuptk') is-invalid @enderror" id="nuptk" name="nuptk" value="{{ old('nuptk') }}"  placeholder="Enter NUPTK">
-
-                        @error('nuptk')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div> --}}
+                   
 
                     <div class="form-group mb-3">
                         <label for="name">Name</label>
@@ -92,13 +74,14 @@
                     </div>
 
                     <div class="form-group mb-3">
-                        <label for="name" class="form-control @error('type') is-invalid @enderror" >Type</label>
-                        <select name="type" id="">
-                            <option value="Spv">Supervisor</option>
-                            <option value="Operator">Operator</option>
+                        <label for="name"  >Divisi</label>
+                        <select name="divisi_id" class="form-control @error('divisi_id') is-invalid @enderror" id="">
+                            @foreach ($divisi as $item)
+                                <option value="{{ $item->id }}">{{ $item->nama_divisi }}</option>
+                            @endforeach
                         </select>
 
-                        @error('type')
+                        @error('divisi_id')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
